@@ -1,0 +1,1 @@
+Drop your logo image files here (for example: logo.png, logo.svg, or logo.jpg).
