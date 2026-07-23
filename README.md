@@ -2,6 +2,8 @@
 
 A bilingual salon booking and shopping demo with a polished landing page, an admin page, and a Django REST API for storing content locally.
 
+![Salon Booking Web App](salon-booking-system/frontend/assets/logo.svg)
+
 ## What is included
 
 - Responsive salon landing page with English and Arabic support
@@ -84,3 +86,7 @@ This project is currently a local demo and uses SQLite for easy setup. It is a s
 - Add secure admin login
 - Add logo upload support
 - Prepare for deployment to a cloud host
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
