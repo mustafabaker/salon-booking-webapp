@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxury Salon | Book & Shop</title>
+    <style>
+      :root {
+        --bg: #f7efe8;
+        --panel: #ffffff;
+        --text: #2f2430;
+        --muted: #6f6470;
+        --accent: #a95a4d;
+        --accent-2: #f2d8c8;
+        --dark: #22181d;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #fdf8f1 0%, #f3e8df 100%);
+        color: var(--text);
+      }
+      .page {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 24px 18px 60px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(8px);
+        border: 1px solid #efe2d8;
+        border-radius: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+      }
+      .brand strong { font-size: 1.05rem; display:block; }
+      .logo-box {
+        width: 150px;
+        height: 72px;
+        border: 2px dashed #d9bfae;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #fcf7f2, #f3e8df);
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 20px;
+        background: var(--panel);
+        border-radius: 24px;
+        padding: clamp(20px, 3vw, 32px);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.06);
+      }
+      .hero h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin: 0 0 10px; }
+      .lead { color: var(--muted); font-size: 1rem; line-height: 1.7; }
+      .actions { display:flex; gap:12px; margin-top: 18px; flex-wrap:wrap; }
+      button { border:none; padding: 12px 16px; border-radius: 999px; font-weight:600; cursor:pointer; }
+      .primary { background: var(--accent); color:white; }
+      .secondary { background: var(--accent-2); color: var(--text); }
+      .info-card { background: linear-gradient(135deg, #fff8f3, #f5e3d5); border-radius: 20px; padding: 20px; }
+      .section-title { margin: 28px 0 14px; font-size: 1.15rem; font-weight: 700; }
+      .services, .products { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
+      .card { background: var(--panel); border-radius: 16px; padding: 18px; box-shadow: 0 10px 24px rgba(0,0,0,0.04); }
+      .card h3 { margin-top: 0; margin-bottom: 6px; }
+      .price { color: var(--accent); font-weight: 700; }
+      .badge { display:inline-block; margin-bottom: 10px; color: var(--accent); font-size: 0.8rem; font-weight:700; letter-spacing: .08em; text-transform: uppercase; }
+      .book-btn { margin-top: 10px; background: var(--dark); color:white; }
+      .shop-btn { margin-top: 10px; background: var(--accent-2); color: var(--text); }
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+        .services, .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 640px) {
+        .topbar { flex-direction:column; align-items:flex-start; gap:12px; }
+        .hero { padding: 20px; }
+        .actions { flex-direction:column; }
+        .services, .products { grid-template-columns: 1fr; }
+        .logo-box { width:100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="topbar">
+        <div class="brand"><strong>Luxury Salon</strong><span>Book appointments & shop essentials</span></div>
+        <div class="logo-box">Drop your logo here<br />assets/logo.png</div>
+      </div>
+
+      <section class="hero">
+        <div>
+          <div class="badge">Premium salon experience</div>
+          <h1>Where beauty meets effortless booking</h1>
+          <p class="lead">Reserve your next appointment, explore signature services, and shop professional salon products in one refined experience.</p>
+          <div class="actions">
+            <button class="primary">Book Appointment</button>
+            <button class="secondary">Explore Products</button>
+          </div>
+        </div>
+        <div class="info-card">
+          <h3>Today’s availability</h3>
+          <p>9:00 AM • 11:30 AM • 2:00 PM • 5:30 PM</p>
+          <p style="margin-bottom: 0; color: var(--muted);">Fast online booking for your busy schedule.</p>
+        </div>
+      </section>
+
+      <div class="section-title">Featured Services</div>
+      <div class="services">
+        <div class="card">
+          <h3>Signature Haircut</h3>
+          <p>Precision styling for a polished finish.</p>
+          <button class="book-btn">Book Now</button>
+        </div>
+        <div class="card">
+          <h3>Color Refresh</h3>
+          <p>Brilliant tones and dimensional care.</p>
+          <button class="book-btn">Book Now</button>
+        </div>
+        <div class="card">
+          <h3>Luxury Facial</h3>
+          <p>Glow-boosting care with a calming finish.</p>
+          <button class="book-btn">Book Now</button>
+        </div>
+      </div>
+
+      <div class="section-title">Best Selling Products</div>
+      <div class="products">
+        <div class="card">
+          <h3>Repair Shampoo</h3>
+          <p>Hydrating care for daily use.</p>
+          <div class="price">$24</div>
+          <button class="shop-btn">Add to Cart</button>
+        </div>
+        <div class="card">
+          <h3>Silk Styling Cream</h3>
+          <p>Soft hold with a glossy finish.</p>
+          <div class="price">$18</div>
+          <button class="shop-btn">Add to Cart</button>
+        </div>
+        <div class="card">
+          <h3>Glow Serum</h3>
+          <p>Radiance support for skin and hair.</p>
+          <div class="price">$32</div>
+          <button class="shop-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

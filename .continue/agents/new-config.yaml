@@ -1,0 +1,16 @@
+name: Gemma Config
+version: 1.0.0
+schema: v1
+models:
+  - name: gemma4:latest
+    provider: ollama
+    model: gemma4:latest
+    roles:
+      - chat
+      - edit
+      - apply
+  - name: gemma4:latest
+    provider: ollama
+    model: gemma4:latest
+    roles:
+      - autocomplete

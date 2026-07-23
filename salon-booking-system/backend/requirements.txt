@@ -1,0 +1,4 @@
+# Python Dependencies (Using Django for robust features)
+django
+djangorestframework
+psycopg2-binary # Example DB driver

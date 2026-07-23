@@ -1,0 +1,9 @@
+{
+  "name": "salon-booking-webapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "echo 'No frontend app configured yet'",
+    "build": "echo 'No frontend build step configured yet'"
+  }
+}

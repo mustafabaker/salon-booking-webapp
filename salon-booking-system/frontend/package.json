@@ -1,0 +1,9 @@
+{
+  "name": "salon-booking-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "echo 'Frontend app not yet created'",
+    "build": "echo 'Frontend build placeholder'"
+  }
+}
