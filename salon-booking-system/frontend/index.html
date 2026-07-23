@@ -46,6 +46,7 @@
         box-shadow: 0 12px 30px rgba(93, 60, 74, 0.08);
         margin-bottom: 20px;
         gap: 12px;
+        flex-wrap: wrap;
       }
       .lang-switch {
         display: flex;
@@ -68,6 +69,14 @@
         color: var(--dark);
         font-weight: 600;
       }
+      .admin-link {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 700;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: #fff7f2;
+      }
       .lang-switch .active {
         background: var(--accent);
         color: white;
@@ -75,24 +84,55 @@
       }
       .brand strong { font-size: 1.05rem; display:block; }
       .logo-box {
-        width: 150px;
-        height: 72px;
-        border: 2px dashed #d9bfae;
-        border-radius: 14px;
+        width: min(220px, 100%);
+        min-height: 78px;
+        border: 1px solid #efd8ca;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: linear-gradient(135deg, #fff8f3, #f7e5da);
-        color: var(--muted);
+        color: var(--text);
         text-align: center;
-        font-size: 0.9rem;
-        padding: 8px;
+        padding: 10px 14px;
         overflow: hidden;
+        flex-shrink: 0;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
       }
-      .logo-box img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
+      .brand-mark {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      .brand-mark .mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #7a4d57);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        box-shadow: 0 6px 14px rgba(181, 106, 106, 0.24);
+      }
+      .brand-mark .text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+      .brand-mark .title {
+        font-size: 0.95rem;
+        color: var(--dark);
+      }
+      .brand-mark .subtitle {
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
       .hero {
         display: grid;
@@ -194,14 +234,19 @@
       .shop-btn { margin-top: 10px; background: var(--accent-2); color: var(--text); border: 1px solid #ead2c5; }
       @media (max-width: 900px) {
         .hero { grid-template-columns: 1fr; }
-        .services, .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .services, .products, .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
       @media (max-width: 640px) {
-        .topbar { flex-direction:column; align-items:flex-start; gap:12px; }
+        .topbar {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+        }
         .hero { padding: 20px; }
         .actions { flex-direction:column; }
-        .services, .products { grid-template-columns: 1fr; }
-        .logo-box { width:100%; }
+        .services, .products, .card-grid { grid-template-columns: 1fr; }
+        .logo-box { width: 100%; height: 70px; }
+        .lang-switch, .auth-pill { width: 100%; justify-content: center; }
       }
     </style>
   </head>
@@ -210,11 +255,20 @@
       <div class="topbar">
         <div class="brand"><strong id="brandTitle">صالون وسبا جمال الغزالة</strong><span id="brandSubtitle">Book appointments & shop essentials</span></div>
         <div class="lang-switch">
-          <button class="active" onclick="setLanguage('en')">EN</button>
-          <button onclick="setLanguage('ar')">AR</button>
+          <button class="active" data-lang="en" onclick="setLanguage('en')">EN</button>
+          <button data-lang="ar" onclick="setLanguage('ar')">AR</button>
         </div>
         <div class="auth-pill">👤 Member Login</div>
-        <div class="logo-box" id="logoBox"><img src="assets/logo.png" alt="Salon logo" onerror="this.style.display='none'; this.parentElement.innerHTML='Drop your logo here<br />assets/logo.png';" /></div>
+        <a class="admin-link" href="admin.html">Admin Panel</a>
+        <div class="logo-box" id="logoBox">
+          <div class="brand-mark" aria-label="Ghazalah Salon brand mark">
+            <span class="mark" id="brandIcon">✿</span>
+            <span class="text">
+              <span class="title" id="brandMarkTitle">Ghazalah Salon</span>
+              <span class="subtitle" id="brandMarkSubtitle">Beauty & Wellness</span>
+            </span>
+          </div>
+        </div>
       </div>
 
       <section class="hero">
@@ -274,19 +328,19 @@
         <div class="card">
           <h3 id="product1Title">Repair Shampoo</h3>
           <p id="product1Text">Hydrating care for daily use.</p>
-          <div class="price">$24</div>
+          <div class="price" id="product1Price">$24</div>
           <button class="shop-btn" id="product1Btn">Add to Cart</button>
         </div>
         <div class="card">
           <h3 id="product2Title">Silk Styling Cream</h3>
           <p id="product2Text">Soft hold with a glossy finish.</p>
-          <div class="price">$18</div>
+          <div class="price" id="product2Price">$18</div>
           <button class="shop-btn" id="product2Btn">Add to Cart</button>
         </div>
         <div class="card">
           <h3 id="product3Title">Glow Serum</h3>
           <p id="product3Text">Radiance support for skin and hair.</p>
-          <div class="price">$32</div>
+          <div class="price" id="product3Price">$32</div>
           <button class="shop-btn" id="product3Btn">Add to Cart</button>
         </div>
       </div>
@@ -304,11 +358,13 @@
     </div>
 
     <script>
-      const translations = {
+      const defaultContent = {
         en: {
           brandTitle: 'صالون وسبا جمال الغزالة',
           brandSubtitle: 'Book appointments & shop essentials',
-          logoBox: 'Drop your logo here<br />assets/logo.png',
+          brandIcon: '✿',
+          brandMarkTitle: 'Ghazalah Salon',
+          brandMarkSubtitle: 'Beauty & Wellness',
           badge: 'Premium salon experience',
           heroTitle: 'Where beauty meets effortless booking',
           heroText: 'Reserve your next appointment, explore signature services, and shop professional salon products in one refined experience.',
@@ -324,30 +380,24 @@
           availabilityText: '9:00 AM • 11:30 AM • 2:00 PM • 5:30 PM',
           availabilityNote: 'Fast online booking for your busy schedule.',
           servicesTitle: 'Featured Services',
-          service1Title: 'Signature Haircut',
-          service1Text: 'Precision styling for a polished finish.',
-          service1Btn: 'Book Now',
-          service2Title: 'Color Refresh',
-          service2Text: 'Brilliant tones and dimensional care.',
-          service2Btn: 'Book Now',
-          service3Title: 'Luxury Facial',
-          service3Text: 'Glow-boosting care with a calming finish.',
-          service3Btn: 'Book Now',
+          services: [
+            { title: 'Signature Haircut', text: 'Precision styling for a polished finish.', button: 'Book Now' },
+            { title: 'Color Refresh', text: 'Brilliant tones and dimensional care.', button: 'Book Now' },
+            { title: 'Luxury Facial', text: 'Glow-boosting care with a calming finish.', button: 'Book Now' }
+          ],
           productsTitle: 'Best Selling Products',
-          product1Title: 'Repair Shampoo',
-          product1Text: 'Hydrating care for daily use.',
-          product1Btn: 'Add to Cart',
-          product2Title: 'Silk Styling Cream',
-          product2Text: 'Soft hold with a glossy finish.',
-          product2Btn: 'Add to Cart',
-          product3Title: 'Glow Serum',
-          product3Text: 'Radiance support for skin and hair.',
-          product3Btn: 'Add to Cart'
+          products: [
+            { title: 'Repair Shampoo', text: 'Hydrating care for daily use.', price: '$24', button: 'Add to Cart' },
+            { title: 'Silk Styling Cream', text: 'Soft hold with a glossy finish.', price: '$18', button: 'Add to Cart' },
+            { title: 'Glow Serum', text: 'Radiance support for skin and hair.', price: '$32', button: 'Add to Cart' }
+          ]
         },
         ar: {
           brandTitle: 'صالون وسبا جمال الغزالة',
           brandSubtitle: 'احجز المواعيد واشتري المنتجات',
-          logoBox: 'أضف شعارك هنا<br />assets/logo.png',
+          brandIcon: '✿',
+          brandMarkTitle: 'صالون الغزالة',
+          brandMarkSubtitle: 'الجمال والرفاهية',
           badge: 'تجربة صالون مميزة',
           heroTitle: 'حيث يلتقي الجمال مع الحجز السهل',
           heroText: 'احجز موعدك القادم، واستكشف الخدمات المميزة، واشتري منتجات الصالون الاحترافية من خلال تجربة واحدة أنيقة.',
@@ -363,36 +413,65 @@
           availabilityText: '٩:٠٠ صباحًا • ١١:٣٠ صباحًا • ٢:٠٠ ظهرًا • ٥:٣٠ مساءً',
           availabilityNote: 'حجز سريع عبر الإنترنت يناسب جدولك المزدحم.',
           servicesTitle: 'الخدمات المميزة',
-          service1Title: 'تقطيع شعر فاخر',
-          service1Text: 'تصفيف دقيق للحصول على لمسة أنيقة.',
-          service1Btn: 'احجز الآن',
-          service2Title: 'تجديد اللون',
-          service2Text: 'ألوان جميلة وعنايةً أعمق.',
-          service2Btn: 'احجز الآن',
-          service3Title: 'تجديد الوجه الفاخر',
-          service3Text: 'عناية تُضفي إشراقة مع لمسة مريحة.',
-          service3Btn: 'احجز الآن',
+          services: [
+            { title: 'تقطيع شعر فاخر', text: 'تصفيف دقيق للحصول على لمسة أنيقة.', button: 'احجز الآن' },
+            { title: 'تجديد اللون', text: 'ألوان جميلة وعنايةً أعمق.', button: 'احجز الآن' },
+            { title: 'تجديد الوجه الفاخر', text: 'عناية تُضفي إشراقة مع لمسة مريحة.', button: 'احجز الآن' }
+          ],
           productsTitle: 'أفضل المنتجات مبيعًا',
-          product1Title: 'شامبو إصلاح',
-          product1Text: 'عناية مرطبة للاستخدام اليومي.',
-          product1Btn: 'أضف إلى السلة',
-          product2Title: 'كريم تصفيف حريري',
-          product2Text: 'ثبات خفيف مع لمسة لامعة.',
-          product2Btn: 'أضف إلى السلة',
-          product3Title: 'سيروم إشراقة',
-          product3Text: 'دعم الإشراقة للشعر والبشرة.',
-          product3Btn: 'أضف إلى السلة'
+          products: [
+            { title: 'شامبو إصلاح', text: 'عناية مرطبة للاستخدام اليومي.', price: '٢٤$', button: 'أضف إلى السلة' },
+            { title: 'كريم تصفيف حريري', text: 'ثبات خفيف مع لمسة لامعة.', price: '١٨$', button: 'أضف إلى السلة' },
+            { title: 'سيروم إشراقة', text: 'دعم الإشراقة للشعر والبشرة.', price: '٣٢$', button: 'أضف إلى السلة' }
+          ]
         }
       };
 
+      let currentLanguage = 'en';
+      let contentState = JSON.parse(JSON.stringify(defaultContent));
+
+      async function loadContent() {
+        try {
+          const saved = localStorage.getItem('salonAdminData');
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            contentState = {
+              en: { ...defaultContent.en, ...parsed.en, services: parsed.en?.services || defaultContent.en.services, products: parsed.en?.products || defaultContent.en.products },
+              ar: { ...defaultContent.ar, ...parsed.ar, services: parsed.ar?.services || defaultContent.ar.services, products: parsed.ar?.products || defaultContent.ar.products }
+            };
+          }
+
+          const response = await fetch('http://127.0.0.1:8000/api/settings/');
+          if (response.ok) {
+            const rows = await response.json();
+            const enSetting = rows.find(item => item.key === 'site_content_en');
+            const arSetting = rows.find(item => item.key === 'site_content_ar');
+            if (enSetting) {
+              const parsed = JSON.parse(enSetting.value);
+              contentState.en = { ...defaultContent.en, ...parsed, services: parsed.services || defaultContent.en.services, products: parsed.products || defaultContent.en.products };
+            }
+            if (arSetting) {
+              const parsed = JSON.parse(arSetting.value);
+              contentState.ar = { ...defaultContent.ar, ...parsed, services: parsed.services || defaultContent.ar.services, products: parsed.products || defaultContent.ar.products };
+            }
+            localStorage.setItem('salonAdminData', JSON.stringify(contentState));
+          }
+        } catch (error) {
+          console.warn('Unable to load saved salon data', error);
+        }
+      }
+
       function setLanguage(lang) {
-        const content = translations[lang];
+        currentLanguage = lang;
+        const content = contentState[lang] || contentState.en;
         document.documentElement.lang = lang;
         document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
         document.getElementById('brandTitle').textContent = content.brandTitle;
         document.getElementById('brandSubtitle').textContent = content.brandSubtitle;
-        document.getElementById('logoBox').innerHTML = content.logoBox;
+        document.getElementById('brandIcon').textContent = content.brandIcon;
+        document.getElementById('brandMarkTitle').textContent = content.brandMarkTitle;
+        document.getElementById('brandMarkSubtitle').textContent = content.brandMarkSubtitle;
         document.getElementById('badge').textContent = content.badge;
         document.getElementById('heroTitle').textContent = content.heroTitle;
         document.getElementById('heroText').textContent = content.heroText;
@@ -408,31 +487,37 @@
         document.getElementById('availabilityText').textContent = content.availabilityText;
         document.getElementById('availabilityNote').textContent = content.availabilityNote;
         document.getElementById('servicesTitle').textContent = content.servicesTitle;
-        document.getElementById('service1Title').textContent = content.service1Title;
-        document.getElementById('service1Text').textContent = content.service1Text;
-        document.getElementById('service1Btn').textContent = content.service1Btn;
-        document.getElementById('service2Title').textContent = content.service2Title;
-        document.getElementById('service2Text').textContent = content.service2Text;
-        document.getElementById('service2Btn').textContent = content.service2Btn;
-        document.getElementById('service3Title').textContent = content.service3Title;
-        document.getElementById('service3Text').textContent = content.service3Text;
-        document.getElementById('service3Btn').textContent = content.service3Btn;
+        const serviceCards = [
+          { title: document.getElementById('service1Title'), text: document.getElementById('service1Text'), button: document.getElementById('service1Btn') },
+          { title: document.getElementById('service2Title'), text: document.getElementById('service2Text'), button: document.getElementById('service2Btn') },
+          { title: document.getElementById('service3Title'), text: document.getElementById('service3Text'), button: document.getElementById('service3Btn') }
+        ];
+        serviceCards.forEach((card, index) => {
+          const item = content.services[index] || { title: '', text: '', button: '' };
+          card.title.textContent = item.title;
+          card.text.textContent = item.text;
+          card.button.textContent = item.button;
+        });
+
         document.getElementById('productsTitle').textContent = content.productsTitle;
-        document.getElementById('product1Title').textContent = content.product1Title;
-        document.getElementById('product1Text').textContent = content.product1Text;
-        document.getElementById('product1Btn').textContent = content.product1Btn;
-        document.getElementById('product2Title').textContent = content.product2Title;
-        document.getElementById('product2Text').textContent = content.product2Text;
-        document.getElementById('product2Btn').textContent = content.product2Btn;
-        document.getElementById('product3Title').textContent = content.product3Title;
-        document.getElementById('product3Text').textContent = content.product3Text;
-        document.getElementById('product3Btn').textContent = content.product3Btn;
+        const productCards = [
+          { title: document.getElementById('product1Title'), text: document.getElementById('product1Text'), price: document.getElementById('product1Price'), button: document.getElementById('product1Btn') },
+          { title: document.getElementById('product2Title'), text: document.getElementById('product2Text'), price: document.getElementById('product2Price'), button: document.getElementById('product2Btn') },
+          { title: document.getElementById('product3Title'), text: document.getElementById('product3Text'), price: document.getElementById('product3Price'), button: document.getElementById('product3Btn') }
+        ];
+        productCards.forEach((card, index) => {
+          const item = content.products[index] || { title: '', text: '', price: '', button: '' };
+          card.title.textContent = item.title;
+          card.text.textContent = item.text;
+          card.price.textContent = item.price;
+          card.button.textContent = item.button;
+        });
 
         document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`.lang-switch button[onclick*="'${lang}'"]`).classList.add('active');
+        document.querySelector(`.lang-switch button[data-lang="${lang}"]`).classList.add('active');
       }
 
-      setLanguage('en');
+      loadContent().finally(() => setLanguage(currentLanguage));
     </script>
   </body>
 </html>

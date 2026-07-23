@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salon Admin Panel</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #fff8f3;
+        color: #3b2430;
+        padding: 24px;
+      }
+      .panel {
+        max-width: 980px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: 0 16px 40px rgba(93, 60, 74, 0.08);
+      }
+      h1, h2 { margin-top: 0; }
+      .grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card { border: 1px solid #f1e0d6; border-radius: 16px; padding: 16px; }
+      label { display: block; font-weight: 600; margin-bottom: 6px; }
+      input, textarea, button { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #e4cdbb; margin-bottom: 10px; font: inherit; }
+      button { cursor: pointer; background: #b56a6a; color: white; border: none; font-weight: 700; }
+      .actions { display: flex; gap: 10px; margin-top: 8px; }
+      .secondary { background: #f3e0d7; color: #3b2430; }
+      @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <div class="panel">
+      <h1>Salon Admin Panel</h1>
+      <p>Update your salon branding, logo text, services, and products here. Changes appear on the main page instantly.</p>
+      <div class="actions">
+        <button onclick="saveData()">Save Changes</button>
+        <button class="secondary" onclick="window.location.href='index.html'">Open Website</button>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Brand Settings</h2>
+          <label>Brand title</label>
+          <input id="brandTitleInput" />
+          <label>Brand subtitle</label>
+          <input id="brandSubtitleInput" />
+          <label>Brand icon</label>
+          <input id="brandIconInput" />
+          <label>Brand name</label>
+          <input id="brandMarkTitleInput" />
+          <label>Brand tagline</label>
+          <input id="brandMarkSubtitleInput" />
+        </div>
+
+        <div class="card">
+          <h2>Hero Content</h2>
+          <label>Hero badge</label>
+          <input id="badgeInput" />
+          <label>Hero title</label>
+          <input id="heroTitleInput" />
+          <label>Hero text</label>
+          <textarea id="heroTextInput" rows="4"></textarea>
+        </div>
+
+        <div class="card">
+          <h2>Services</h2>
+          <label>Service 1 title</label>
+          <input id="service1TitleInput" />
+          <label>Service 1 text</label>
+          <input id="service1TextInput" />
+          <label>Service 2 title</label>
+          <input id="service2TitleInput" />
+          <label>Service 2 text</label>
+          <input id="service2TextInput" />
+          <label>Service 3 title</label>
+          <input id="service3TitleInput" />
+          <label>Service 3 text</label>
+          <input id="service3TextInput" />
+        </div>
+
+        <div class="card">
+          <h2>Products</h2>
+          <label>Product 1 title</label>
+          <input id="product1TitleInput" />
+          <label>Product 1 text</label>
+          <input id="product1TextInput" />
+          <label>Product 1 price</label>
+          <input id="product1PriceInput" />
+          <label>Product 2 title</label>
+          <input id="product2TitleInput" />
+          <label>Product 2 text</label>
+          <input id="product2TextInput" />
+          <label>Product 2 price</label>
+          <input id="product2PriceInput" />
+          <label>Product 3 title</label>
+          <input id="product3TitleInput" />
+          <label>Product 3 text</label>
+          <input id="product3TextInput" />
+          <label>Product 3 price</label>
+          <input id="product3PriceInput" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const defaultData = {
+        en: {
+          brandTitle: 'صالون وسبا جمال الغزالة',
+          brandSubtitle: 'Book appointments & shop essentials',
+          brandIcon: '✿',
+          brandMarkTitle: 'Ghazalah Salon',
+          brandMarkSubtitle: 'Beauty & Wellness',
+          badge: 'Premium salon experience',
+          heroTitle: 'Where beauty meets effortless booking',
+          heroText: 'Reserve your next appointment, explore signature services, and shop professional salon products in one refined experience.',
+          services: [
+            { title: 'Signature Haircut', text: 'Precision styling for a polished finish.', button: 'Book Now' },
+            { title: 'Color Refresh', text: 'Brilliant tones and dimensional care.', button: 'Book Now' },
+            { title: 'Luxury Facial', text: 'Glow-boosting care with a calming finish.', button: 'Book Now' }
+          ],
+          products: [
+            { title: 'Repair Shampoo', text: 'Hydrating care for daily use.', price: '$24', button: 'Add to Cart' },
+            { title: 'Silk Styling Cream', text: 'Soft hold with a glossy finish.', price: '$18', button: 'Add to Cart' },
+            { title: 'Glow Serum', text: 'Radiance support for skin and hair.', price: '$32', button: 'Add to Cart' }
+          ]
+        },
+        ar: {
+          brandTitle: 'صالون وسبا جمال الغزالة',
+          brandSubtitle: 'احجز المواعيد واشتري المنتجات',
+          brandIcon: '✿',
+          brandMarkTitle: 'صالون الغزالة',
+          brandMarkSubtitle: 'الجمال والرفاهية',
+          badge: 'تجربة صالون مميزة',
+          heroTitle: 'حيث يلتقي الجمال مع الحجز السهل',
+          heroText: 'احجز موعدك القادم، واستكشف الخدمات المميزة، واشتري منتجات الصالون الاحترافية من خلال تجربة واحدة أنيقة.',
+          services: [
+            { title: 'تقطيع شعر فاخر', text: 'تصفيف دقيق للحصول على لمسة أنيقة.', button: 'احجز الآن' },
+            { title: 'تجديد اللون', text: 'ألوان جميلة وعنايةً أعمق.', button: 'احجز الآن' },
+            { title: 'تجديد الوجه الفاخر', text: 'عناية تُضفي إشراقة مع لمسة مريحة.', button: 'احجز الآن' }
+          ],
+          products: [
+            { title: 'شامبو إصلاح', text: 'عناية مرطبة للاستخدام اليومي.', price: '٢٤$', button: 'أضف إلى السلة' },
+            { title: 'كريم تصفيف حريري', text: 'ثبات خفيف مع لمسة لامعة.', price: '١٨$', button: 'أضف إلى السلة' },
+            { title: 'سيروم إشراقة', text: 'دعم الإشراقة للشعر والبشرة.', price: '٣٢$', button: 'أضف إلى السلة' }
+          ]
+        }
+      };
+
+      function loadData() {
+        const saved = localStorage.getItem('salonAdminData');
+        const data = saved ? JSON.parse(saved) : defaultData;
+        const en = data.en || defaultData.en;
+        const ar = data.ar || defaultData.ar;
+
+        document.getElementById('brandTitleInput').value = en.brandTitle;
+        document.getElementById('brandSubtitleInput').value = en.brandSubtitle;
+        document.getElementById('brandIconInput').value = en.brandIcon;
+        document.getElementById('brandMarkTitleInput').value = en.brandMarkTitle;
+        document.getElementById('brandMarkSubtitleInput').value = en.brandMarkSubtitle;
+        document.getElementById('badgeInput').value = en.badge;
+        document.getElementById('heroTitleInput').value = en.heroTitle;
+        document.getElementById('heroTextInput').value = en.heroText;
+
+        document.getElementById('service1TitleInput').value = en.services[0].title;
+        document.getElementById('service1TextInput').value = en.services[0].text;
+        document.getElementById('service2TitleInput').value = en.services[1].title;
+        document.getElementById('service2TextInput').value = en.services[1].text;
+        document.getElementById('service3TitleInput').value = en.services[2].title;
+        document.getElementById('service3TextInput').value = en.services[2].text;
+
+        document.getElementById('product1TitleInput').value = en.products[0].title;
+        document.getElementById('product1TextInput').value = en.products[0].text;
+        document.getElementById('product1PriceInput').value = en.products[0].price;
+        document.getElementById('product2TitleInput').value = en.products[1].title;
+        document.getElementById('product2TextInput').value = en.products[1].text;
+        document.getElementById('product2PriceInput').value = en.products[1].price;
+        document.getElementById('product3TitleInput').value = en.products[2].title;
+        document.getElementById('product3TextInput').value = en.products[2].text;
+        document.getElementById('product3PriceInput').value = en.products[2].price;
+      }
+
+      async function saveData() {
+        const data = {
+          en: {
+            brandTitle: document.getElementById('brandTitleInput').value,
+            brandSubtitle: document.getElementById('brandSubtitleInput').value,
+            brandIcon: document.getElementById('brandIconInput').value,
+            brandMarkTitle: document.getElementById('brandMarkTitleInput').value,
+            brandMarkSubtitle: document.getElementById('brandMarkSubtitleInput').value,
+            badge: document.getElementById('badgeInput').value,
+            heroTitle: document.getElementById('heroTitleInput').value,
+            heroText: document.getElementById('heroTextInput').value,
+            services: [
+              { title: document.getElementById('service1TitleInput').value, text: document.getElementById('service1TextInput').value, button: 'Book Now' },
+              { title: document.getElementById('service2TitleInput').value, text: document.getElementById('service2TextInput').value, button: 'Book Now' },
+              { title: document.getElementById('service3TitleInput').value, text: document.getElementById('service3TextInput').value, button: 'Book Now' }
+            ],
+            products: [
+              { title: document.getElementById('product1TitleInput').value, text: document.getElementById('product1TextInput').value, price: document.getElementById('product1PriceInput').value, button: 'Add to Cart' },
+              { title: document.getElementById('product2TitleInput').value, text: document.getElementById('product2TextInput').value, price: document.getElementById('product2PriceInput').value, button: 'Add to Cart' },
+              { title: document.getElementById('product3TitleInput').value, text: document.getElementById('product3TextInput').value, price: document.getElementById('product3PriceInput').value, button: 'Add to Cart' }
+            ]
+          },
+          ar: {}
+        };
+
+        try {
+          localStorage.setItem('salonAdminData', JSON.stringify(data));
+          const payload = [
+            { key: 'site_content_en', value: JSON.stringify(data.en) },
+            { key: 'site_content_ar', value: JSON.stringify(data.ar) }
+          ];
+
+          for (const item of payload) {
+            await fetch('http://127.0.0.1:8000/api/settings/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(item)
+            });
+          }
+
+          alert('Saved successfully. Open the main page to preview it.');
+        } catch (error) {
+          console.error(error);
+          alert('Saved locally, but the backend sync failed.');
+        }
+      }
+
+      loadData();
+    </script>
+  </body>
+</html>
