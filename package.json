@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "echo 'No frontend app configured yet'",
-    "build": "echo 'No frontend build step configured yet'"
+    "start": "python -m http.server 3000 --directory salon-booking-system/frontend",
+    "backend": "cd salon-booking-system/backend/salon_backend && python manage.py runserver 0.0.0.0:8000",
+    "migrate": "cd salon-booking-system/backend/salon_backend && python manage.py migrate",
+    "build": "echo 'Static site demo - no build step required'"
   }
 }

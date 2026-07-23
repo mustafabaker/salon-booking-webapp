@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "echo 'Frontend app not yet created'",
-    "build": "echo 'Frontend build placeholder'"
+    "start": "python -m http.server 3000",
+    "build": "echo 'Static site demo - no build step required'"
   }
 }
