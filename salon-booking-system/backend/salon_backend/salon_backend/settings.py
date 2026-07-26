@@ -59,14 +59,9 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-# Resolve possible frontend locations relative to settings file. Prefer the
-# project-level `frontend` folder but fall back to other likely locations.
+# Resolve the frontend folder relative to the backend app.
 FRONTEND_DIR = BASE_DIR.parent.parent / 'frontend'
-ALT_FRONTEND_DIR = BASE_DIR.parent / 'frontend'
-STATICFILES_DIRS = [p for p in (FRONTEND_DIR, ALT_FRONTEND_DIR) if p.exists()]
-# If neither path exists, keep STATICFILES_DIRS empty to avoid warnings.
-if not STATICFILES_DIRS:
-    STATICFILES_DIRS = []
+STATICFILES_DIRS = [FRONTEND_DIR] if FRONTEND_DIR.exists() else []
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

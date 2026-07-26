@@ -66,6 +66,22 @@ Then open:
 - Admin page: http://127.0.0.1:3000/admin.html
 - API: http://127.0.0.1:8000/api/settings/
 
+## Easier Windows startup
+
+Instead of manually running each server, use the helper scripts from the project root.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\setup_and_run.ps1
+```
+
+This script will create the backend virtual environment, install Python dependencies, run Django migrations, and start both servers.
+
+To stop the local servers:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\stop_local.ps1
+```
+
 ## Optional: use the root npm scripts
 
 From the project root, you can also use:
@@ -74,7 +90,7 @@ From the project root, you can also use:
 npm start
 ```
 
-This serves the frontend from the project root.
+This serves only the frontend from `salon-booking-system/frontend` and does not start the backend.
 
 ## Notes
 

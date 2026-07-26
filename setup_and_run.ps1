@@ -31,12 +31,21 @@ if (-not (Test-Path $python)) {
 }
 
 # Upgrade pip and install requirements
-& $pip install --upgrade pip
+& $python -m pip install --upgrade pip
 if (Test-Path $requirements) {
     Write-Host "Installing backend requirements from $requirements"
-    & $pip install -r $requirements
+    & $python -m pip install -r $requirements
 } else {
     Write-Warning "requirements.txt not found at $requirements"
+}
+
+# Run migrations before starting the backend
+Push-Location $backendAppDir
+try {
+    Write-Host "Running Django migrations"
+    & $python manage.py migrate
+} finally {
+    Pop-Location
 }
 
 # Start backend in new PowerShell window
