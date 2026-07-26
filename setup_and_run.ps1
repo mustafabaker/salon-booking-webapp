@@ -22,19 +22,18 @@ if (-not (Test-Path $venvPath)) {
     python -m venv $venvPath
 }
 
-$python = Join-Path $venvPath 'Scripts\python.exe'
-$pip = Join-Path $venvPath 'Scripts\pip.exe'
+$venvPython = Join-Path $venvPath 'Scripts\python.exe'
 
-if (-not (Test-Path $python)) {
-    Write-Error "Python executable not found in venv ($python). Ensure Python is installed and accessible."
+if (-not (Test-Path $venvPython)) {
+    Write-Error "Python executable not found in venv ($venvPython). Ensure Python is installed and accessible."
     exit 1
 }
 
 # Upgrade pip and install requirements
-& $python -m pip install --upgrade pip
+& $venvPython -m pip install --upgrade pip
 if (Test-Path $requirements) {
     Write-Host "Installing backend requirements from $requirements"
-    & $python -m pip install -r $requirements
+    & $venvPython -m pip install -r $requirements
 } else {
     Write-Warning "requirements.txt not found at $requirements"
 }
@@ -43,19 +42,19 @@ if (Test-Path $requirements) {
 Push-Location $backendAppDir
 try {
     Write-Host "Running Django migrations"
-    & $python manage.py migrate
+    & $venvPython manage.py migrate
 } finally {
     Pop-Location
 }
 
 # Start backend in new PowerShell window
-$backendCommand = "cd `"$backendAppDir`"; `$env:VIRTUAL_ENV='$venvPath'; `"$python`" manage.py runserver 0.0.0.0:8000"
-Start-Process -FilePath powershell -ArgumentList "-NoExit","-Command","$backendCommand" -WindowStyle Normal
+$backendCommand = "cd `"$backendAppDir`"; `$env:VIRTUAL_ENV='$venvPath'; `"$venvPython`" manage.py runserver 0.0.0.0:8000"
+Start-Process -FilePath powershell -ArgumentList "-NoExit","-NoProfile","-Command","$backendCommand" -WindowStyle Normal
 Write-Host "Started backend in new window"
 
 # Start frontend in new PowerShell window
-$frontendCommand = "cd `"$frontendDir`"; python -m http.server 3000"
-Start-Process -FilePath powershell -ArgumentList "-NoExit","-Command","$frontendCommand" -WindowStyle Normal
+$frontendCommand = "cd `"$frontendDir`"; `"$venvPython`" -m http.server 3000"
+Start-Process -FilePath powershell -ArgumentList "-NoExit","-NoProfile","-Command","$frontendCommand" -WindowStyle Normal
 Write-Host "Started frontend in new window (http://127.0.0.1:3000)"
 
 Write-Host "All done."
